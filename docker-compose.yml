@@ -1,0 +1,126 @@
+version: "3.8"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - vendile-network
+    ports:
+      - "3000:3000"
+    environment:
+      POSTGRES_HOST: "postgres-database"
+      POSTGRES_PORT: "5432"
+      POSTGRES_DB: "vendile"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "mysecretpassword"
+    depends_on:
+      - postgres-database
+
+  # Vendile - App Service
+  # vendile-app:
+  #   image: vendile:latest
+  #   networks:
+  #     - vendile-network
+  #   ports:
+  #     - '3000:3000'  # Change this port based on your app's configuration
+  #   environment:
+  #     POSTGRES_HOST: "postgres-database"
+  #     POSTGRES_PORT: "5432"
+  #     POSTGRES_DB: "vendile"
+  #     POSTGRES_USER: "postgres"
+  #     POSTGRES_PASSWORD: "mysecretpassword"
+  #   depends_on:
+  #     - postgres-database
+  # Add other necessary configurations for your app
+
+  # Vendile - Database
+  postgres-database:
+    image: postgres
+    networks:
+      - vendile-network
+    environment:
+      POSTGRES_DB: "vendile"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "mysecretpassword"
+    ports:
+      - "5432:5432"
+    volumes:
+      - vendile-postgres-volume:/var/lib/postgresql/data
+
+  # Vendile - Postgresql Admin
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    volumes:
+      - vendile-pgadmin-volume:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@vendile.com"
+      PGADMIN_DEFAULT_PASSWORD: "master@2026!!_!!_!!_!!"
+    networks:
+      - vendile-network
+
+volumes:
+  vendile-postgres-volume:
+  vendile-pgadmin-volume:
+
+networks:
+  vendile-network:
+# version: "3.8"
+# services:
+#   app:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+
+#   # Vendile - App Service
+#   # vendile-app:
+#   #   image: vendile:latest
+#   #   networks:
+#   #     - vendile-network
+#   #   ports:
+#   #     - '3000:3000'  # Change this port based on your app's configuration
+#   #   environment:
+#   #     POSTGRES_HOST: "postgres-database"
+#   #     POSTGRES_PORT: "5432"
+#   #     POSTGRES_DB: "vendile"
+#   #     POSTGRES_USER: "postgres"
+#   #     POSTGRES_PASSWORD: "mysecretpassword"
+#   #   depends_on:
+#   #     - postgres-database
+#   # Add other necessary configurations for your app
+
+#   # Vendile - Database
+#   postgres-database:
+#     image: postgres
+#     networks:
+#       - vendile-network
+#     environment:
+#       POSTGRES_DB: "vendile"
+#       POSTGRES_USER: "postgres"
+#       POSTGRES_PASSWORD: "mysecretpassword"
+#     ports:
+#       - "5432:5432"
+#     volumes:
+#       - vendile-postgres-volume:/var/lib/postgresql/data
+
+#   # Vendile - Postgresql Admin
+#   pgadmin:
+#     image: dpage/pgadmin4:latest
+#     volumes:
+#       - vendile-pgadmin-volume:/var/lib/pgadmin
+#     ports:
+#       - "5050:80"
+#     environment:
+#       PGADMIN_DEFAULT_EMAIL: "admin@vendile.com"
+#       PGADMIN_DEFAULT_PASSWORD: "master@2026!!_!!_!!_!!"
+#     networks:
+#       - vendile-network
+
+# volumes:
+#   vendile-postgres-volume:
+#   vendile-pgadmin-volume:
+
+# networks:
+#   vendile-network:
