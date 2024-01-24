@@ -12,7 +12,7 @@ const RootLayout = ({
           <div className="h-[1024px] w-[312px] flex flex-col items-start justify-start pt-0 px-0 pb-0 box-border">
           <Sidebar />
           </div>
-          <main>
+          <main className="w-full">
                     {children}
                 </main>
         {/* </form> */}
