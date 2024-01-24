@@ -4,29 +4,38 @@ import React from "react";
 // import { cn } from "@/lib/utils";
 // import { Home, Plus, Search, HelpCircle, MessageSquareMore, Settings, LogOut } from "lucide-react";
 // import { Button } from '@/components/ui/button';
-import { Home, Plus, Search, HelpCircle, MessageSquareMore, Settings, LogOut } from "lucide-react";
-import Link from 'next/link';
+import {
+  Home,
+  Plus,
+  Search,
+  HelpCircle,
+  MessageSquareMore,
+  Settings,
+  LogOut,
+} from "lucide-react";
+import Link from "next/link";
 // import { FaRegEdit } from "react-icons/fa";
 import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
-import Image from 'next/image';
-import {Button} from '@/components/ui/button';
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
 // import ChatSVG from '@/public/images/chat.svg';
-import SearchSVG from '@/public/images/search.svg';
-import EditIcon from '@/public/images/create@2x.png';
-import FAQIcon from '@/public/images/help-outline.svg'
-import SettingsIcon from '@/public/images/group-76.svg'
-import ProfilePicture from '@/public/images/Profile.png';
-import LogoutIcon from '@/public/images/logout@2x.png';
-import LightIcon from '@/public/images/wb-sunny.svg';
-import DarkIcon from '@/public/images/moon-and-stars@2x.png';
+import SearchSVG from "@/public/images/search.svg";
+import EditIcon from "@/public/images/create@2x.png";
+import FAQIcon from "@/public/images/help-outline.svg";
+import SettingsIcon from "@/public/images/group-76.svg";
+import ProfilePicture from "@/public/images/Profile.png";
+import LogoutIcon from "@/public/images/logout@2x.png";
+import LightIcon from "@/public/images/wb-sunny.svg";
+import DarkIcon from "@/public/images/moon-and-stars@2x.png";
 import type { NextPage } from "next";
-
-
 
 const Sidebar: NextPage = () => {
   const pathname = usePathname();
+  const title = pathname.split("/")[1];
+
+  console.log(title);
   const router = useRouter();
   const { data: session, status } = useSession();
 
@@ -34,7 +43,7 @@ const Sidebar: NextPage = () => {
     //TODO: Check if Pro
 
     return router.push(url);
-  }
+  };
 
   return (
     <div className="self-stretch flex-1 bg-gray-100 flex flex-col items-center justify-start pt-[61px] pb-10 pr-[18px] pl-[19px] gap-[71px] text-left text-5xl text-gray-500 font-poppins border-r-[2.5px] border-solid border-ghostwhite mq450:gap-[35px] mq450:pt-[26px] mq450:pb-5 mq450:box-border mq1050:pt-10 mq1050:pb-[26px] mq1050:box-border bottom-0 left-0 top-0 relative">
@@ -45,15 +54,25 @@ const Sidebar: NextPage = () => {
         </div>
       </div>
       <div className="self-stretch flex-1 flex flex-col items-start justify-start gap-[28px]">
-        <Link  href="/chat" className="cursor-pointer [border:none] py-2.5 px-7 active:bg-indianred-100 self-stretch rounded-11xl flex flex-row items-center justify-start gap-[20px] z-[1] hover:bg-indianred-200 no-underline">
+        <Link
+          style={{
+            background: title === "chat" ? "#ed5f78" : "",
+          }}
+          href="/chat"
+          className="cursor-pointer [border:none] py-2.5 px-7 active:bg-indianred-100 self-stretch rounded-11xl flex flex-row items-center justify-start gap-[20px] z-[1] hover:bg-indianred-200 no-underline"
+        >
           <div className="h-[47px] w-[273px] relative rounded-11xl bg-indianred-100 hidden text-lightslategray" />
           {/* <Image
             className="h-[22px] w-[22px] relative overflow-hidden shrink-0 z-[3] text-lightslategray hover:text-white"
             alt="Chat Icon"
             src={ChatSVG}
           /> */}
-          <MessageSquareMore className="h-[22px] w-[22px] relative overflow-hidden shrink-0 z-[3] text-lightslategray hover:text-white" />
-          <div className="h-[27px] relative text-lg font-semibold text-lightslategray font-poppins text-left inline-block z-[2] hover:text-white">
+          <MessageSquareMore style={{
+            color: title === "chat" ? "#fff" : "",
+          }}className="h-[22px] w-[22px] relative overflow-hidden shrink-0 z-[3] text-lightslategray hover:text-white" />
+          <div  style={{
+            color: title === "chat" ? "#fff" : "",
+          }} className="h-[27px] relative text-lg font-semibold text-lightslategray font-poppins text-left inline-block z-[2] hover:text-white">
             Chats
           </div>
         </Link>
@@ -73,95 +92,107 @@ const Sidebar: NextPage = () => {
             </div>
           </nav>
         </div> */}
-        <Link href="/search" className="cursor-pointer [border:none] py-2.5 px-7 active:bg-indianred-100 self-stretch rounded-11xl flex flex-row items-center justify-start gap-[20px] z-[1] hover:bg-indianred-200 no-underline">
+        <Link
+          href="/search"
+          className="cursor-pointer [border:none] py-2.5 px-7 active:bg-indianred-100 self-stretch rounded-11xl flex flex-row items-center justify-start gap-[20px] z-[1] hover:bg-indianred-200 no-underline"
+        >
+          <div className="h-[47px] w-[273px] relative rounded-11xl bg-indianred-100 hidden text-lightslategray" />
+          <Image
+            className="h-[22px] w-[22px] relative overflow-hidden shrink-0 z-[3]"
+            alt="Search Icon"
+            src={SearchSVG}
+          />
+          <div className="hh-[27px] relative text-lg font-semibold text-lightslategray font-poppins text-left inline-block z-[2] hover:text-white">
+            Search
+          </div>
+        </Link>
+        <Link
+          href="/companion"
+          className="cursor-pointer [border:none] py-2.5 px-7 active:bg-indianred-100 self-stretch rounded-11xl flex flex-row items-center justify-start gap-[20px] z-[1] hover:bg-indianred-200 no-underline"
+        >
+          <div className="h-[47px] w-[273px] relative rounded-11xl bg-indianred-100 hidden text-lightslategray" />
+          <Image
+            className="h-[22px] w-[22px] relative object-cover z-[3]"
+            loading="eager"
+            alt="Edit Icon"
+            src={EditIcon}
+          />
+          <div className="hh-[27px] relative text-lg font-semibold text-lightslategray font-poppins text-left inline-block z-[2] hover:text-white">
+            Create
+          </div>
+        </Link>
+        <Link
+          href="/faq"
+          className="cursor-pointer [border:none] py-2.5 px-7 active:bg-indianred-100 self-stretch rounded-11xl flex flex-row items-center justify-start gap-[20px] z-[1] hover:bg-indianred-200 no-underline"
+        >
+          <div className="h-[47px] w-[273px] relative rounded-11xl bg-indianred-100 hidden text-lightslategray" />
+          <Image
+            className="h-[22px] w-[22px] relative overflow-hidden shrink-0 z-[3]"
+            loading="eager"
+            alt="FAQ Icon"
+            src={FAQIcon}
+          />
+          <div className="hh-[27px] relative text-lg font-semibold text-lightslategray font-poppins text-left inline-block z-[2] hover:text-white">
+            FAQ
+          </div>
+        </Link>
+        <Link
+          href="/settings"
+          className="cursor-pointer [border:none] py-2.5 px-7 active:bg-indianred-100 self-stretch rounded-11xl flex flex-row items-center justify-start gap-[20px] z-[1] hover:bg-indianred-200 no-underline"
+        >
+          <div className="h-[47px] w-[273px] relative rounded-11xl bg-indianred-100 hidden text-lightslategray" />
+          <Image
+            className="h-[21.9px] w-[19px] relative z-[1]"
+            loading="eager"
+            alt="Settings Icon"
+            src={SettingsIcon}
+          />
+          <div className="hh-[27px] relative text-lg font-semibold text-lightslategray font-poppins text-left inline-block z-[2] hover:text-white">
+            Settings
+          </div>
+        </Link>
+        {status === "authenticated" ? (
+          <Button
+            className="bg-white cursor-pointer [border:none] bg-none py-2.5 px-7 active:bg-indianred-100 self-stretch rounded-11xl flex flex-row items-center justify-start gap-[20px] z-[1] hover:bg-indianred-200 no-underline"
+            onClick={() =>
+              signOut({
+                redirect: true,
+                callbackUrl: `${window.location.origin}/sign-in`,
+              })
+            }
+          >
             <div className="h-[47px] w-[273px] relative rounded-11xl bg-indianred-100 hidden text-lightslategray" />
             <Image
-                className="h-[22px] w-[22px] relative overflow-hidden shrink-0 z-[3]"
-                alt="Search Icon"
-                src={SearchSVG}
-              />
-              <div className="hh-[27px] relative text-lg font-semibold text-lightslategray font-poppins text-left inline-block z-[2] hover:text-white">
-                Search
-              </div>
-              
-            </Link>
-        <Link href="/companion" className="cursor-pointer [border:none] py-2.5 px-7 active:bg-indianred-100 self-stretch rounded-11xl flex flex-row items-center justify-start gap-[20px] z-[1] hover:bg-indianred-200 no-underline">
-            <div className="h-[47px] w-[273px] relative rounded-11xl bg-indianred-100 hidden text-lightslategray" />
-              <Image
-                className="h-[22px] w-[22px] relative object-cover z-[3]"
-                loading="eager"
-                alt="Edit Icon"
-                src={EditIcon}
-              />
-              <div className="hh-[27px] relative text-lg font-semibold text-lightslategray font-poppins text-left inline-block z-[2] hover:text-white">
-                Create
-              </div>
-              
-            </Link>
-            <Link href="/faq" className="cursor-pointer [border:none] py-2.5 px-7 active:bg-indianred-100 self-stretch rounded-11xl flex flex-row items-center justify-start gap-[20px] z-[1] hover:bg-indianred-200 no-underline">
+              className="h-[22px] w-[22px] relative object-cover z-[3]"
+              loading="eager"
+              alt=""
+              src={LogoutIcon}
+            />
+            <div className="hh-[27px] relative text-lg font-semibold text-lightslategray font-poppins text-left inline-block z-[2] hover:text-white">
+              Log Out
+            </div>
+          </Button>
+        ) : (
+          <Link
+            href="/sign-in"
+            className="cursor-pointer [border:none] py-2.5 px-7 active:bg-indianred-100 self-stretch rounded-11xl flex flex-row items-center justify-start gap-[20px] z-[1] hover:bg-indianred-200 no-underline"
+          >
             <div className="h-[47px] w-[273px] relative rounded-11xl bg-indianred-100 hidden text-lightslategray" />
             <Image
-                className="h-[22px] w-[22px] relative overflow-hidden shrink-0 z-[3]"
-                loading="eager"
-                alt="FAQ Icon"
-                src={FAQIcon}
-              />
-              <div className="hh-[27px] relative text-lg font-semibold text-lightslategray font-poppins text-left inline-block z-[2] hover:text-white">
-                FAQ
-              </div>
-              
-            </Link>
-            <Link href="/settings" className="cursor-pointer [border:none] py-2.5 px-7 active:bg-indianred-100 self-stretch rounded-11xl flex flex-row items-center justify-start gap-[20px] z-[1] hover:bg-indianred-200 no-underline">
-            <div className="h-[47px] w-[273px] relative rounded-11xl bg-indianred-100 hidden text-lightslategray" />
-            <Image
-                className="h-[21.9px] w-[19px] relative z-[1]"
-                loading="eager"
-                alt="Settings Icon"
-                src={SettingsIcon}
-              />
-              <div className="hh-[27px] relative text-lg font-semibold text-lightslategray font-poppins text-left inline-block z-[2] hover:text-white">
-                Settings
-              </div>
-              
-            </Link>
-            {
-               status === "authenticated" ? (
-            <Button  className="bg-white cursor-pointer [border:none] bg-none py-2.5 px-7 active:bg-indianred-100 self-stretch rounded-11xl flex flex-row items-center justify-start gap-[20px] z-[1] hover:bg-indianred-200 no-underline" onClick={()=> signOut({
-              redirect: true,
-              callbackUrl: `${window.location.origin}/sign-in`,
-            })}>
-            <div className="h-[47px] w-[273px] relative rounded-11xl bg-indianred-100 hidden text-lightslategray" />
-            <Image
-                className="h-[22px] w-[22px] relative object-cover z-[3]"
-                loading="eager"
-                alt=""
-                src={LogoutIcon}
-              />
-              <div className="hh-[27px] relative text-lg font-semibold text-lightslategray font-poppins text-left inline-block z-[2] hover:text-white">
-                Log Out
-              </div>
-              
-            </Button>
-            ) : (
-              <Link href="/sign-in" className="cursor-pointer [border:none] py-2.5 px-7 active:bg-indianred-100 self-stretch rounded-11xl flex flex-row items-center justify-start gap-[20px] z-[1] hover:bg-indianred-200 no-underline">
-            <div className="h-[47px] w-[273px] relative rounded-11xl bg-indianred-100 hidden text-lightslategray" />
-            <Image
-                className="h-[21.9px] w-[19px] relative z-[1]"
-                loading="eager"
-                alt="Sign Icon"
-                src={LogoutIcon}
-              />
-              <div className="hh-[27px] relative text-lg font-semibold text-lightslategray font-poppins text-left inline-block z-[2] hover:text-white">
-                Sign In
-              </div>
-              
-            </Link>
-                                 )
-                             }
-            
+              className="h-[21.9px] w-[19px] relative z-[1]"
+              loading="eager"
+              alt="Sign Icon"
+              src={LogoutIcon}
+            />
+            <div className="hh-[27px] relative text-lg font-semibold text-lightslategray font-poppins text-left inline-block z-[2] hover:text-white">
+              Sign In
+            </div>
+          </Link>
+        )}
+
         {/* <div className="flex flex-row items-start justify-start py-0 px-7">
           <nav className="m-0 flex flex-col items-start justify-start gap-[38px] text-left text-lg text-lightslategray font-poppins"> */}
-            {/* <div className="w-[104px] flex flex-row items-start justify-start gap-[20px]">
+        {/* <div className="w-[104px] flex flex-row items-start justify-start gap-[20px]">
               <Image
                 className="h-[22px] w-[22px] relative overflow-hidden shrink-0 z-[3]"
                 alt="Search Icon"
@@ -173,7 +204,7 @@ const Sidebar: NextPage = () => {
                 type="text"
               />
             </div> */}
-            {/* <Link href="/companion" className="cursor-pointer [border:none] active:bg-indianred-100 self-stretch rounded-11xl flex flex-row items-center justify-start gap-[20px] z-[1] hover:bg-indianred-200 no-underline">
+        {/* <Link href="/companion" className="cursor-pointer [border:none] active:bg-indianred-100 self-stretch rounded-11xl flex flex-row items-center justify-start gap-[20px] z-[1] hover:bg-indianred-200 no-underline">
             <div className="h-[47px] w-[273px] relative rounded-11xl bg-indianred-100 hidden text-lightslategray" />
               <Image
                 className="h-[22px] w-[22px] relative object-cover z-[3]"
@@ -186,7 +217,7 @@ const Sidebar: NextPage = () => {
               </div>
               
             </Link> */}
-            {/* <Link href='/faq' className="cursor-pointer [border:none] flex flex-row items-center active:bg-indianred-100 hover:bg-indianred-200 justify-start gap-[20px] no-underline">
+        {/* <Link href='/faq' className="cursor-pointer [border:none] flex flex-row items-center active:bg-indianred-100 hover:bg-indianred-200 justify-start gap-[20px] no-underline">
               <Image
                 className="h-[22px] w-[22px] relative overflow-hidden shrink-0 z-[3]"
                 loading="eager"
@@ -280,21 +311,10 @@ const Sidebar: NextPage = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Sidebar;
-
-    
-
-
-
-
-
-
-
-
-
 
 // "use client";
 
@@ -311,7 +331,6 @@ export default Sidebar;
 // import ProfilePicture from '@/public/images/Profile.png';
 // import styles from '@/styles/sidenav.module.css';
 
-
 // export const Sidebar = () => {
 //     const pathname = usePathname();
 //     const router = useRouter();
@@ -324,64 +343,64 @@ export default Sidebar;
 //         { id: 5, icon: HelpCircle, title: 'FAQ', href: "/faq", tooltip: 'FAQ', pro: false },
 //         { id: 6, icon: Plus, title: 'Create', href: "/companion/new", tooltip: 'Companion', pro: true},
 //         { id: 7, icon: Settings, title: 'Setting', href: "/settings", tooltip: 'Setting', pro: false },
-        // { id: 8, icon: LogOut, title: 'Log out', tooltip: 'Log out', pro: true },
-      // ];
-    // const routes = [
-    //     {
-    //         icon: Home,
-    //         href: "/",
-    //         label: "Home",
-    //         pro: false,
-    //     },
-    //     {
-    //         icon: MessageSquareMore,
-    //         href: "/chat/new",
-    //         label: "Chat",
-    //         pro: true,
-    //     },
-    //     {
-    //         icon: Search,
-    //         href: "/search",
-    //         label: "Search",
-    //         pro: true,
-    //     },
-    //     {
-    //         icon: FaRegEdit,
-    //         href: "/edit",
-    //         label: "Edit",
-    //         pro: false,
-    //     },
-    //     {
-    //         icon: HelpCircle,
-    //         href: "/faq",
-    //         label: "FAQ",
-    //         pro: false,
-    //     },
-    //     {
-    //         icon: Plus,
-    //         href: "/companion/new",
-    //         label: "Create",
-    //         pro: true,
-    //     },
-    //     {
-    //         icon: Settings,
-    //         href: "/settings",
-    //         label: "Settings",
-    //         pro: false,
-    //     },
-    //     {
-    //         icon: LogOut,
-    //         // href: "/settings",
-    //         label: "Log Out",
-    //         pro: true,
-    //     },
-    // ]
+// { id: 8, icon: LogOut, title: 'Log out', tooltip: 'Log out', pro: true },
+// ];
+// const routes = [
+//     {
+//         icon: Home,
+//         href: "/",
+//         label: "Home",
+//         pro: false,
+//     },
+//     {
+//         icon: MessageSquareMore,
+//         href: "/chat/new",
+//         label: "Chat",
+//         pro: true,
+//     },
+//     {
+//         icon: Search,
+//         href: "/search",
+//         label: "Search",
+//         pro: true,
+//     },
+//     {
+//         icon: FaRegEdit,
+//         href: "/edit",
+//         label: "Edit",
+//         pro: false,
+//     },
+//     {
+//         icon: HelpCircle,
+//         href: "/faq",
+//         label: "FAQ",
+//         pro: false,
+//     },
+//     {
+//         icon: Plus,
+//         href: "/companion/new",
+//         label: "Create",
+//         pro: true,
+//     },
+//     {
+//         icon: Settings,
+//         href: "/settings",
+//         label: "Settings",
+//         pro: false,
+//     },
+//     {
+//         icon: LogOut,
+//         // href: "/settings",
+//         label: "Log Out",
+//         pro: true,
+//     },
+// ]
 
-    // const onNavigate = (url: string, pro:boolean) =>{
-    //     //TODO: Check if Pro
+// const onNavigate = (url: string, pro:boolean) =>{
+//     //TODO: Check if Pro
 
-    //     return router.push(url);
-    // }
+//     return router.push(url);
+// }
 
 //     return (
 // <section className={styles.sidebar}>
@@ -408,7 +427,7 @@ export default Sidebar;
 // </div>
 // ):(<p>{null}</p>)
 //                 } */}
-               
+
 // {
 //                status === "authenticated" ? (
 // <div>
@@ -420,7 +439,7 @@ export default Sidebar;
 //         <LogOut />
 //         <span className={styles.tooltip}></span>
 //       </Button>
-//     </div> 
+//     </div>
 //                      ) : (
 //  <Link href="/sign-in">Sign In</Link>
 //                     )
@@ -447,7 +466,6 @@ export default Sidebar;
 //   </div>
 // </section>
 
-
 //         // <div className="space-y-4 flex flex-col h-full text-primary bg-secondary">
 //         //     <div className="p-3 flex flex-1 justify-center">
 //         //         <div className="space-y-2">
@@ -468,7 +486,7 @@ export default Sidebar;
 //         //             ))}
 //         //         </div>
 //         //     </div>
-            
+
 //         // </div>
 //     )
 // }
