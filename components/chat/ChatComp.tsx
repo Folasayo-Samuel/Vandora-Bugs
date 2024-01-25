@@ -2,8 +2,8 @@ import Image from "next/image";
 import React from "react";
 import profile1 from "@/public/chat/profile1.svg";
 import Send from "@/public/chat/Send.svg";
-import ChatPro from "@/public/chat/ChatPro.svg";
-import Vend from "@/public/chat/Vend.svg";
+import ChatPro from "@/public/chat/chatpro.svg";
+import Vend from "@/public/chat/vend.svg";
 
 type Props = {};
 
