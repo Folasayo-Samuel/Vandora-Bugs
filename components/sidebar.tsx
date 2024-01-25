@@ -107,7 +107,7 @@ const Sidebar: NextPage = () => {
           </div>
         </Link>
         <Link
-          href="/companion"
+          href="/companio"
           className="cursor-pointer [border:none] py-2.5 px-7 active:bg-indianred-100 self-stretch rounded-11xl flex flex-row items-center justify-start gap-[20px] z-[1] hover:bg-indianred-200 no-underline"
         >
           <div className="h-[47px] w-[273px] relative rounded-11xl bg-indianred-100 hidden text-lightslategray" />
